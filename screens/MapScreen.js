@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, StyleSheet, Button, Alert } from 'react-native'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { Marker, Callout } from 'react-native-maps'
 import { Locations } from '../locations'
@@ -16,7 +16,7 @@ export default function MapScreen({ navigation }) {
     }
 
     return (
-        <View styles={styles.container}>
+        <View style={styles.container}>
             <Button
                 title="Home Screen"
                 onPress={() => navigation.navigate('Home')}

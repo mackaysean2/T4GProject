@@ -1,11 +1,30 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, Alert } from 'react-native'
 import { Button } from 'react-native'
+import { FlatList } from 'react-native'
+import { Locations } from '../locations'
 
 export default function ListScreen({ navigation }) {
-    return (
-        <View styles={styles.container}>
-            <Text styles={styles.title}>List Screen</Text>
 
+    function handlePress(name){
+        Alert.alert(name)
+    }
+
+    return (
+        <View style={styles.container}>
+            <FlatList
+                data={Locations}
+                keyExtractor={(item, index) => item.name.toString()}
+                ItemSeparatorComponent={<View style={{height:16}}/>}
+                ListEmptyComponent={<Text>No Toilets found</Text>}
+                ListHeaderComponent={<Text>List of Toilets</Text>}
+                renderItem={({ item }) => {
+                    return (
+                        <View style={styles.card} >
+                            <Text style={styles.listitem} onPress={() => handlePress(item.name)}>{item.name}</Text>
+                        </View> 
+                    )
+                }}
+            />
             <Button
                 title="Home Screen"
                 onPress={() => navigation.navigate('Home')}
@@ -19,15 +38,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'lightblue'
+        backgroundColor: 'white',
     },
-    title: {
-        fontSize: 20,
-        color: 'black',
-        marginBottom: 20
+    card: {
+        backgroundColor: 'lightgrey',
+        padding: 10 
     },
-    map: {
-        width: '80%',
-        height: '80%'
+    listitem: {
+        fontSize: 20
     }
 })

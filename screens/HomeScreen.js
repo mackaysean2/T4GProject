@@ -1,15 +1,16 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, StyleSheet } from 'react-native'
 import { Button } from 'react-native'
 
 export default function HomeScreen({ navigation }) {
     return (
-        <View styles={styles.container}>
-            <Text styles={styles.title}>Home Screen</Text>
+        <View style={styles.container}>
             <Button
+                style={styles.button}
                 title="List Screen"
                 onPress={() => navigation.navigate('List')}
             />
             <Button
+                style={styles.button}
                 title="Map Screen"
                 onPress={() => navigation.navigate('Map')}
             />
@@ -22,15 +23,11 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'lightblue'
+        backgroundColor: 'white',
     },
     title: {
         fontSize: 20,
         color: 'black',
         marginBottom: 20
-    },
-    map: {
-        width: '80%',
-        height: '80%'
     }
 })
