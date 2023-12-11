@@ -1,7 +1,7 @@
-import { View, Text, StyleSheet, Alert, FlatList, Button } from 'react-native'
+import { View, Text, StyleSheet, FlatList, Button } from 'react-native'
 import { useState } from 'react'
 import { Locations } from '../locations'
-import { Modal } from 'react-native'
+import ModalView from '../components/ModalView'
 
 export default function ListScreen({ navigation }) {
     const [isModalVisible, setIsModalVisible] = useState(false)
@@ -14,17 +14,14 @@ export default function ListScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <Modal visible={isModalVisible}>
-                <View style={styles.container}>
-                    <Text>{activeSelection.name}</Text>
-                    <Text>{activeSelection.description}</Text>
-                    <Button
-                        title="Close"
-                        color="blue"
-                        onPress={() => setIsModalVisible(false)}
-                    />
-                </View>
-            </Modal>
+
+            <ModalView
+                styles={styles.container}
+                activeSelection={activeSelection}
+                isModalVisible={isModalVisible}
+                onPress={() => setIsModalVisible(false)}
+            />
+
             <FlatList
                 data={Locations}
                 keyExtractor={(item) => item.name.toString()}
@@ -44,10 +41,12 @@ export default function ListScreen({ navigation }) {
                     )
                 }}
             />
+
             <Button
                 title="Home Screen"
                 onPress={() => navigation.navigate('Home')}
             />
+
         </View>
     )
 }
