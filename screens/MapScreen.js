@@ -1,8 +1,12 @@
-import { View, Text, StyleSheet, Button, Alert } from 'react-native'
+import { View, Text, StyleSheet, Button, Modal } from 'react-native'
+import { useState } from 'react'
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'
 import { Marker, Callout } from 'react-native-maps'
 import { Locations } from '../locations'
 export default function MapScreen({ navigation }) {
+
+    const [isModalVisible, setIsModalVisible] = useState(false)
+    const [activeSelection, setActiveSelection] = useState(Locations[0])
 
     const initial_region = {
         latitude: 55.8628075,
@@ -12,7 +16,8 @@ export default function MapScreen({ navigation }) {
     }
 
     const onMarkerPress = (location) => {
-        Alert.alert(location.name)
+        setActiveSelection(location)
+        setIsModalVisible(true)
     }
 
     return (
@@ -53,6 +58,17 @@ export default function MapScreen({ navigation }) {
                         </Marker>
                     ))}
                 </MapView>
+                <Modal visible={isModalVisible}>
+                <View style={styles.container}>
+                    <Text>{activeSelection.name}</Text>
+                    <Text>{activeSelection.description}</Text>
+                    <Button
+                        title="Close"
+                        color="blue"
+                        onPress={() => setIsModalVisible(false)}
+                    />
+                </View>
+            </Modal>
             </View>
     )
 }
